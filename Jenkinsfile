@@ -14,6 +14,7 @@ pipeline {
           sh 'ls -l'
           sh 'mvn clean package'
         }
+        sh "docker build --tag ${GIT_COMMIT} ."
       }
     }
   }
