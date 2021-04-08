@@ -14,6 +14,13 @@ pipeline {
           sh 'ls -l'
           sh 'mvn clean package'
         }
+        stash includes: 'app/reposilite-backend/target/reposilite*.jar', name: 'jar'
+      }
+    }
+    stage('Package') {
+      agent { label 'docker' }
+      steps {
+        unstash 'jar'
         sh "docker build --tag ${GIT_COMMIT} ."
       }
     }
