@@ -17,11 +17,15 @@ pipeline {
         stash includes: 'app/reposilite-backend/target/reposilite*.jar', name: 'jar'
       }
     }
-    stage('Package') {
+    stage('Publish') {
       agent { label 'docker' }
       steps {
         unstash 'jar'
         sh "docker build --tag ${GIT_COMMIT} ."
+        sh "docker tag ${GIT_COMMIT} fintlabsacr.azurecr.io/reposilite:latest"
+        withDockerRegistry([credentialsId: 'fintlabsacr.azurecr.io', url: 'https://fintlabsacr.azurecr.io']) {
+            sh "docker push fintlabsacr.azurecr.io/reposilite:latest"
+        }
       }
     }
   }
