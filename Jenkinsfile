@@ -9,9 +9,11 @@ pipeline {
         }
       }
       steps {
-        git 'https://github.com/dzikoysk/reposilite.git'
-        sh 'ls -l'
-        sh 'mvn clean package'
+        dir('app') {
+          git 'https://github.com/dzikoysk/reposilite.git'
+          sh 'ls -l'
+          sh 'mvn clean package'
+        }
       }
     }
   }
