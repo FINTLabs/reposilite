@@ -1,5 +1,5 @@
 FROM maven:3-openjdk-11 as builder
-RUN curl -L -o source.tar.gz https://github.com/dzikoysk/reposilite/archive/refs/tags/2.9.20.tar.gz
+RUN curl -L -o source.tar.gz https://github.com/dzikoysk/reposilite/archive/refs/tags/2.9.21.tar.gz
 RUN tar xavf source.tar.gz --strip-components=1
 RUN mvn clean package
 
